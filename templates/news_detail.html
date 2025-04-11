@@ -1,0 +1,37 @@
+<!-- templates/blog/news_detail.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ news.title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Rasmga maksimal kenglik va balandlik o'rnatish */
+        .news-image {
+            max-width: 100%;  /* Rasmni konteynerga moslashtiradi */
+            height: auto;  /* Balandlikni nisbiy saqlaydi */
+            object-fit: cover;  /* Rasmni konteynerga to'liq moslashtiradi */
+        }
+    </style>
+</head>
+<body class="container py-5">
+
+    <div class="card shadow p-4">
+        <h2 class="text-primary">{{ news.title }}</h2>
+        <p>Category: {{ news.category }}</p>
+        <p class="text-muted">{{ news.publish_date|date:"F j, Y" }}</p>
+
+        {% if news.image %}
+            <img src="{{ news.image.url }}" alt="News image" class="img-fluid news-image mb-2 rounded">
+        {% endif %}
+
+        <p>{{ news.content }}</p>
+        {% if news.fil %}
+            <!-- Faylni yuklab olish uchun link -->
+            <a href="{{ news.fil.url }}" download>Ushbu {{news.title}} doir qushimcha ma'lumot</a>
+        {% endif %}
+        <a href="{% url 'index' %}" class="btn btn-secondary mt-3">← Back to Home</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!-- templates/about_author.html -->
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About the Author</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+</head>
+<body class="container py-5">
+
+    <div class="card shadow p-4">
+        {% if author.photo %}
+                <img src="{{ author.photo.url }}" alt="Author Photo"
+                class="img-fluid rounded-circle mb-3" style="max-width: 200px;float: right; margin-left: 520px;" >
+        {% endif %}
+        <h2 class="text-primary text-center">{{ author.name }}</h2>
+        
+
+        <p>{{ author.bio }}</p>
+        <div class="d-flex gap-3 mt-4">
+            <a href="{{author.twitter_url}}" target="_blank" class="text-dark fs-4">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="{{author.linkedin_url}}" target="_blank" class="text-dark fs-4">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://linkedin.com/in/username" target="_blank" class="text-dark fs-4">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <a href="https://instagram.com/username" target="_blank" class="text-dark fs-4">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://instagram.com/username" target="_blank" class="text-dark fs-4">
+                <i class="fab fa-facebook"></i>
+            </a>
+        </div>
+        <a href="{% url 'index' %}" class="btn btn-secondary mt-3">← Back to Home</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!-- templates/blog/create_category.html -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Category</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container py-5">
+    <h2>Create a New Category</h2>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Create Category</button>
+    </form>
+    
+    <a href="{% url 'index' %}" class="btn btn-secondary mt-3">Back to Category List</a>  <!-- Back to category list -->
+</body>
+</html>

@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information Center</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        body {
+            background: url("{% static 'img/information-bg.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        .card {
+            transition: transform 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: scale(1.03);
+        }
+        .card img {
+            max-height: 150px;
+            object-fit: cover;
+        }
+        .section-header {
+            background-color: #e9ecef;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1, h3 {
+            color: #004085;
+        }
+        .btn {
+            width: 100%;
+        }
+        .scroll-row {
+            display: flex;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            gap: 20px;
+            scroll-snap-type: x mandatory;
+        }
+        .scroll-row::-webkit-scrollbar {
+            height: 8px;
+        }
+        .scroll-row::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 4px;
+        }
+        .scroll-row .card {
+            flex: 0 0 auto;
+            width: 300px;
+            scroll-snap-align: start;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section-header">
+            <h1>Information & Resources</h1>
+            <p>All essential documents, guides, and helpful files in one place</p>
+            <a href="{% url 'index' %}">← Back to Home</a>
+        </div>
+
+        <section class="mb-5">
+            <h3 class="mb-4">📄 Documents & Useful Materials</h3>
+            <div class="scroll-row">
+                {% for info in information %}
+                <div class="card shadow-sm">
+                    {% if info.image %}
+                        <img src="{{ info.image.url }}" class="card-img-top" alt="{{ info.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ info.title }}</h5>
+                        <p class="card-text">{{ info.description }}</p>
+                        <a href="{{ info.file.url }}" class="btn btn-primary btn-sm" download>Download</a>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center w-100">No documents available at the moment.</p>
+                {% endfor %}
+            </div>
+        </section>
+        
+        <section class="mb-5">
+            <h3 class="mb-4">📈 Presentations & Visual Resources</h3>
+            <div class="row">
+                {% for ppt in presentations %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ ppt.title }}</h5>
+                            <p class="card-text">{{ ppt.description }}</p>
+                            <a href="{{ ppt.file.url }}" class="btn btn-primary btn-sm" download>Download</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center w-100">No presentations uploaded yet.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="mb-5">
+            <h3 class="mb-4">🤝 Help & User Guides</h3>
+            <div class="row">
+                {% for guide in help_guides %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ guide.title }}</h5>
+                            <p class="card-text">{{ guide.description }}</p>
+                            <a href="{{ guide.file.url }}" class="btn btn-success btn-sm" download>Download</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center w-100">User guides will be available soon.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="mb-5">
+            <h3 class="mb-4">🏛️ Official Documents</h3>
+            <div class="row">
+                {% for report in reports %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ report.title }}</h5>
+                            <p class="card-text">{{ report.description }}</p>
+                            <a href="{{ report.file.url }}" class="btn btn-dark btn-sm" download>Download</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center w-100">No official reports available now.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+       
+    <style>
+        body {
+            background-color: #f8f9fa; /* Butun sahifaning orqa foniga rang berish */
+        }
+    
+        .container {
+            max-width: 1200px; /* Containerning maksimal kengligini belgilash */
+            background-color: #ffffff; /* Kengashning orqa foniga rang berish */
+            padding: 30px; /* Kontent atrofidagi bo'shliq */
+            border-radius: 8px; /* To'liq qirralari yumshatilgan */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Yumshoq soyali effekt */
+        }
+    
+        h3 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #343a40; /* So'qmoq rang */
+        }
+    
+        .card {
+            border: none; /* Kardni chegarasini olib tashlash */
+            border-radius: 8px; /* Kardni burchaklarini yumshatish */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animatsiya */
+        }
+    
+        .card:hover {
+            transform: translateY(-10px); /* Kardni yuqoriga ko'tarish */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Yengil soyali effekt */
+        }
+    
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333; /* Sarlavha uchun rang */
+        }
+    
+        .card-text {
+            font-size: 1rem;
+            color: #6c757d; /* Matnning rangini o'zgartirish */
+        }
+    
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+    
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Kategoriyalarni markazda joylashtirish */
+        }
+    
+        .col-md-6 {
+            padding: 15px;
+        }
+    
+        .empty {
+            text-align: center;
+        }
+    
+        /* Agar sahifa bo'sh bo'lsa, orqa fonni o'zgartirish */
+        .empty p {
+            font-size: 1.2rem;
+            color: #007bff; /* Hech qanday natija bo'lsa rangni o'zgartirish */
+        }
+    </style>
+    
+    
+</head>
+<body>
+    <div class="container py-4">
+        <h3 class="text-center mb-4">Qidiruv natijalari</h3>
+        <div class="row justify-content-center">  <!-- Natijalarni markazga joylashtirish uchun -->
+            {% for new in news %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    {% if new.image %}
+                        <img src="{{ new.image.url }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ new.title }}</h5>
+                        <p class="card-text">{{ new.publish_date|date:"F j, Y" }}</p>
+                        <a href="{% url 'news_detail' new.pk %}" class="btn btn-primary btn-sm">Batafsil</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p>Hech qanday natija topilmadi.</p>
+            </div>
+            {% endfor %}
+        </div>
+        <a href="{% url 'index' %}" class="btn btn-secondary mt-3">← Back to Home</a>
+    </div>
+ 
+</body>
+</html>
