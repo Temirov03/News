@@ -126,7 +126,7 @@ def create_category(request):
         form = CategoryForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('index')  # Redirect to a category list page or any other page
+            return redirect('create_news')  # Redirect to a category list page or any other page
     else:
         form = CategoryForm()
     return render(request, 'create_category.html', {'form': form})

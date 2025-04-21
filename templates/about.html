@@ -12,34 +12,43 @@
 </head>
 <body class="container py-5">
 
-    <div class="card shadow p-4">
+    <div class="card shadow p-4 text-center">
         {% if author.photo %}
-                <img src="{{ author.photo.url }}" alt="Author Photo"
-                class="img-fluid rounded-circle mb-3" style="max-width: 200px;float: right; margin-left: 520px;" >
+            <img src="{{ author.photo.url }}" alt="Author Photo"
+                 class="img-fluid rounded-circle mb-3 d-block mx-auto"
+                 style="max-width: 200px; width: 100%; height: auto;">
         {% endif %}
-        <h2 class="text-primary text-center">{{ author.name }}</h2>
+    
+        <h2 class="text-primary">{{ author.name }}</h2>
+    
         
-
         <p>{{ author.bio }}</p>
-        <div class="d-flex gap-3 mt-4">
-            <a href="{{author.twitter_url}}" target="_blank" class="text-dark fs-4">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="{{author.linkedin_url}}" target="_blank" class="text-dark fs-4">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="https://linkedin.com/in/username" target="_blank" class="text-dark fs-4">
+    
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            {% if author.twitter_url %}
+                <a href="{{author.twitter_url}}" target="_blank" class="text-dark fs-4">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            {% endif %}
+            {% if author.linkedin_url %}
+                <a href="{{author.linkedin_url}}" target="_blank" class="text-dark fs-4">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            {% endif %}
+            <a href="https://t.me/username" target="_blank" class="text-dark fs-4">
                 <i class="fab fa-telegram"></i>
             </a>
             <a href="https://instagram.com/username" target="_blank" class="text-dark fs-4">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a href="https://instagram.com/username" target="_blank" class="text-dark fs-4">
+            <a href="https://facebook.com/username" target="_blank" class="text-dark fs-4">
                 <i class="fab fa-facebook"></i>
             </a>
         </div>
+    
         <a href="{% url 'index' %}" class="btn btn-secondary mt-3">← Back to Home</a>
     </div>
-
+    
+    
 </body>
 </html>

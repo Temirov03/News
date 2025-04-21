@@ -3,6 +3,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import Users, News, Category, Author, Information
+from django.core.exceptions import ValidationError
 
 class CustomUserCreationForm(UserCreationForm):
     phone_number = forms.CharField(max_length=15, required=False)
@@ -20,6 +21,18 @@ class NewsForm(forms.ModelForm):
         #     'category': forms.Select()  # Customize widget if needed
         # }
 
+    def clean_file(self):
+        file = self.cleaned_data.get('file')
+        if file and file.size > 2 * 1024 * 1024:  # 2 MB
+            raise ValidationError("Fayl hajmi 2MB dan oshmasligi kerak.")
+        return file
+
+    def clean_video(self):
+        video = self.cleaned_data.get('video')
+        if video and video.size > 5 * 1024 * 1024:  # 10 MB
+            raise ValidationError("Video hajmi 5MB dan oshmasligi kerak.")
+        return video
+
 class AuthorForm(forms.ModelForm):
     class Meta:
         model = Author
@@ -28,7 +41,7 @@ class AuthorForm(forms.ModelForm):
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ['name', 'description', 'image']
+        fields = ['name', 'image']
 
 class InformationForm(forms.ModelForm):
     class Meta:
